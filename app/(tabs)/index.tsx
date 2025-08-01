@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { 
   View, 
   Text, 
@@ -10,25 +10,7 @@ import {
   Modal
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { 
-  Heart, 
-  Calendar, 
-  Pill, 
-  MessageSquare, 
-  FileText,
-  Bell,
-  TrendingUp,
-  Users,
-  Activity,
-  Shield,
-  Clock,
-  Plus,
-  HelpCircle,
-  X,
-  Home,
-  User,
-  Search
-} from 'lucide-react-native';
+import { Heart, Calendar, Pill, MessageSquare, FileText, Bell, TrendingUp, Users, Activity, Shield, Clock, Plus, CircleHelp as HelpCircle, X, Chrome as Home, User, Search } from 'lucide-react-native';
 
 const { width } = Dimensions.get('window');
 
