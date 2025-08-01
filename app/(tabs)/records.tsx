@@ -76,6 +76,16 @@ const HealthRecords = () => {
       status: 'reviewed',
       aiSummary: 'Cholesterol levels are elevated. Consider dietary changes and regular exercise.',
     },
+    {
+      id: 5,
+      title: 'Prescription - Diabetes',
+      type: 'prescription',
+      date: '2024-01-15',
+      hospital: 'Fortis Hospital',
+      doctor: 'Dr. Amit Sharma',
+      status: 'new',
+      aiSummary: 'New prescription includes Metformin 500mg twice daily and Glimepiride 2mg once daily for diabetes management.',
+    },
   ];
 
   const filteredRecords = records.filter(record => {
@@ -126,7 +136,7 @@ const HealthRecords = () => {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Health Records</Text>
+        <Text style={styles.headerTitle}>Records</Text>
         <TouchableOpacity style={styles.uploadButton} onPress={handleUpload}>
           <Plus size={20} color="#ffffff" />
           <Text style={styles.uploadButtonText}>Upload</Text>
@@ -307,7 +317,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#e5e7eb',
   },
   headerTitle: {
-    fontSize: 24,
+    fontSize: 28,
     fontFamily: 'Inter-SemiBold',
     color: '#1f2937',
   },
@@ -316,17 +326,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
     borderRadius: 8,
   },
   uploadButtonText: {
     color: '#ffffff',
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-SemiBold',
   },
   searchContainer: {
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
     backgroundColor: '#ffffff',
   },
   searchWrapper: {
@@ -341,8 +352,8 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    paddingVertical: 14,
-    fontSize: 16,
+    paddingVertical: 16,
+    fontSize: 18,
     fontFamily: 'Inter-Regular',
     color: '#1f2937',
   },
@@ -352,8 +363,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   filterChip: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     borderRadius: 20,
     backgroundColor: '#f3f4f6',
     marginRight: 12,
@@ -362,7 +373,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#2563eb',
   },
   filterText: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-Medium',
     color: '#6b7280',
   },
@@ -376,7 +387,7 @@ const styles = StyleSheet.create({
   recordCard: {
     backgroundColor: '#ffffff',
     borderRadius: 12,
-    padding: 16,
+    padding: 20,
     marginBottom: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -397,7 +408,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   typeIcon: {
-    padding: 8,
+    padding: 10,
     borderRadius: 8,
   },
   recordInfo: {
@@ -405,7 +416,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   recordTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'Inter-SemiBold',
     color: '#1f2937',
   },
@@ -415,18 +426,18 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   recordDate: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-Regular',
     color: '#6b7280',
   },
   recordHospital: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-Regular',
     color: '#6b7280',
   },
   statusBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     borderRadius: 12,
   },
   newStatus: {
@@ -436,7 +447,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#dcfce7',
   },
   statusText: {
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: 'Inter-SemiBold',
   },
   newStatusText: {
@@ -447,7 +458,7 @@ const styles = StyleSheet.create({
   },
   aiSummaryContainer: {
     backgroundColor: '#f0fdf4',
-    padding: 12,
+    padding: 16,
     borderRadius: 8,
     marginBottom: 12,
     borderLeftWidth: 3,
@@ -460,15 +471,15 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   aiSummaryTitle: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-SemiBold',
     color: '#10b981',
   },
   aiSummaryText: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-Regular',
     color: '#1f2937',
-    lineHeight: 20,
+    lineHeight: 24,
   },
   recordActions: {
     flexDirection: 'row',
@@ -478,10 +489,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    paddingVertical: 8,
+    paddingVertical: 10,
   },
   actionText: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-Medium',
     color: '#2563eb',
   },
@@ -491,14 +502,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
   },
   emptyTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontFamily: 'Inter-SemiBold',
     color: '#1f2937',
     marginTop: 16,
     marginBottom: 8,
   },
   emptySubtitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'Inter-Regular',
     color: '#6b7280',
     textAlign: 'center',
@@ -511,18 +522,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
     paddingHorizontal: 24,
-    paddingVertical: 12,
+    paddingVertical: 16,
     borderRadius: 8,
   },
   emptyButtonText: {
     color: '#ffffff',
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'Inter-SemiBold',
   },
   summaryContainer: {
     flexDirection: 'row',
     paddingHorizontal: 20,
-    paddingVertical: 16,
+    paddingVertical: 20,
     backgroundColor: '#ffffff',
     borderTopWidth: 1,
     borderTopColor: '#e5e7eb',
@@ -530,18 +541,19 @@ const styles = StyleSheet.create({
   summaryCard: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: 12,
   },
   summaryNumber: {
-    fontSize: 20,
+    fontSize: 24,
     fontFamily: 'Inter-SemiBold',
     color: '#2563eb',
   },
   summaryLabel: {
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: 'Inter-Regular',
     color: '#6b7280',
     marginTop: 4,
+    textAlign: 'center',
   },
 });
 

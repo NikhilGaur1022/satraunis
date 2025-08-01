@@ -6,7 +6,8 @@ import {
   ScrollView, 
   TouchableOpacity,
   Animated,
-  Dimensions
+  Dimensions,
+  Modal
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { 
@@ -21,7 +22,12 @@ import {
   Activity,
   Shield,
   Clock,
-  Plus
+  Plus,
+  HelpCircle,
+  X,
+  Home,
+  User,
+  Search
 } from 'lucide-react-native';
 
 const { width } = Dimensions.get('window');
@@ -29,6 +35,7 @@ const { width } = Dimensions.get('window');
 const Dashboard = () => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(30)).current;
+  const [showHelpBot, setShowHelpBot] = useState(false);
 
   useEffect(() => {
     Animated.parallel([
@@ -53,10 +60,10 @@ const Dashboard = () => {
   ];
 
   const healthStats = [
-    { title: 'Health Score', value: '85/100', color: '#10b981', icon: TrendingUp },
     { title: 'Reports', value: '12', color: '#2563eb', icon: FileText },
     { title: 'Medicines', value: '3 Active', color: '#f59e0b', icon: Pill },
     { title: 'Reminders', value: '2 Today', color: '#ef4444', icon: Bell },
+    { title: 'Family Members', value: '4', color: '#8b5cf6', icon: Users },
   ];
 
   const recentActivities = [
@@ -80,8 +87,20 @@ const Dashboard = () => {
     },
   ];
 
+  const helpTopics = [
+    { icon: Home, title: 'How to navigate the app', desc: 'Learn about the main features and tabs' },
+    { icon: FileText, title: 'Uploading health records', desc: 'Step-by-step guide to add your documents' },
+    { icon: Users, title: 'Managing family profiles', desc: 'Add and manage family member accounts' },
+    { icon: Bell, title: 'Setting up reminders', desc: 'Never miss your medications' },
+    { icon: Shield, title: 'Privacy and security', desc: 'How we protect your health data' },
+  ];
+
+  const handleHelpTopic = (topic) => {
+    Alert.alert(topic.title, topic.desc + '\n\nDetailed help coming soon!');
+  };
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
       {/* Header */}
       <LinearGradient
         colors={['#2563eb', '#1d4ed8']}
@@ -98,8 +117,8 @@ const Dashboard = () => {
         >
           <View style={styles.headerTop}>
             <View>
-              <Text style={styles.greeting}>Good Morning!</Text>
-              <Text style={styles.userName}>Rahul Sharma</Text>
+              <Text style={styles.greeting}>Good Morning</Text>
+              <Text style={styles.userName}>Rahul!</Text>
             </View>
             <TouchableOpacity style={styles.notificationButton}>
               <Bell size={24} color="#ffffff" />
@@ -109,18 +128,11 @@ const Dashboard = () => {
             </TouchableOpacity>
           </View>
           
-          {/* Health Status Card */}
-          <View style={styles.healthStatusCard}>
-            <View style={styles.healthStatusLeft}>
-              <Heart size={32} color="#10b981" />
-              <View style={styles.healthStatusText}>
-                <Text style={styles.healthStatusTitle}>Health Status</Text>
-                <Text style={styles.healthStatusSubtitle}>Good • Last updated today</Text>
-              </View>
-            </View>
-            <View style={styles.healthScoreBadge}>
-              <Text style={styles.healthScoreText}>85</Text>
-            </View>
+          {/* Welcome Card */}
+          <View style={styles.welcomeCard}>
+            <Heart size={28} color="#10b981" />
+            <Text style={styles.welcomeTitle}>Your Health Dashboard</Text>
+            <Text style={styles.welcomeSubtitle}>Stay on top of your health journey</Text>
           </View>
         </Animated.View>
       </LinearGradient>
@@ -135,14 +147,14 @@ const Dashboard = () => {
           }
         ]}
       >
-        <Text style={styles.sectionTitle}>Quick Actions</Text>
+        <Text style={styles.sectionTitle}>What would you like to do?</Text>
         <View style={styles.quickActionsGrid}>
           {quickActions.map((action, index) => (
             <TouchableOpacity key={index} style={styles.quickActionCard}>
               <View style={[styles.quickActionIcon, { backgroundColor: `${action.color}15` }]}>
                 <action.icon size={24} color={action.color} />
               </View>
-              <Text style={styles.quickActionText}>{action.title}</Text>
+              <Text style={styles.quickActionText} numberOfLines={2}>{action.title}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -158,7 +170,7 @@ const Dashboard = () => {
           }
         ]}
       >
-        <Text style={styles.sectionTitle}>Health Overview</Text>
+        <Text style={styles.sectionTitle}>Your Health at a Glance</Text>
         <View style={styles.healthStatsGrid}>
           {healthStats.map((stat, index) => (
             <View key={index} style={styles.healthStatCard}>
@@ -183,7 +195,7 @@ const Dashboard = () => {
         ]}
       >
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Recent Activities</Text>
+          <Text style={styles.sectionTitle}>Recent Activity</Text>
           <TouchableOpacity>
             <Text style={styles.viewAllText}>View All</Text>
           </TouchableOpacity>
@@ -246,7 +258,7 @@ const Dashboard = () => {
         >
           <View style={styles.aiTipHeader}>
             <Activity size={24} color="#ffffff" />
-            <Text style={styles.aiTipTitle}>Today's Health Tip</Text>
+            <Text style={styles.aiTipTitle}>Health Tip for You</Text>
           </View>
           <Text style={styles.aiTipText}>
             Based on your recent blood test, consider taking a 15-minute walk after meals 
@@ -265,7 +277,76 @@ const Dashboard = () => {
           Your health data is encrypted and secure
         </Text>
       </View>
-    </ScrollView>
+      </ScrollView>
+
+      {/* Floating Help Bot */}
+      <TouchableOpacity 
+        style={styles.helpBotButton}
+        onPress={() => setShowHelpBot(true)}
+      >
+        <HelpCircle size={28} color="#ffffff" />
+      </TouchableOpacity>
+
+      {/* Help Bot Modal */}
+      <Modal
+        visible={showHelpBot}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setShowHelpBot(false)}
+      >
+        <View style={styles.helpModalContainer}>
+          <View style={styles.helpModalHeader}>
+            <View style={styles.helpBotInfo}>
+              <View style={styles.helpBotAvatar}>
+                <HelpCircle size={24} color="#ffffff" />
+              </View>
+              <View>
+                <Text style={styles.helpBotTitle}>Help & Navigation</Text>
+                <Text style={styles.helpBotSubtitle}>How can I help you today?</Text>
+              </View>
+            </View>
+            <TouchableOpacity 
+              style={styles.helpCloseButton}
+              onPress={() => setShowHelpBot(false)}
+            >
+              <X size={24} color="#6b7280" />
+            </TouchableOpacity>
+          </View>
+
+          <ScrollView style={styles.helpModalContent} showsVerticalScrollIndicator={false}>
+            <Text style={styles.helpSectionTitle}>Quick Help Topics</Text>
+            
+            {helpTopics.map((topic, index) => (
+              <TouchableOpacity
+                key={index}
+                style={styles.helpTopicCard}
+                onPress={() => handleHelpTopic(topic)}
+              >
+                <View style={styles.helpTopicIcon}>
+                  <topic.icon size={20} color="#2563eb" />
+                </View>
+                <View style={styles.helpTopicContent}>
+                  <Text style={styles.helpTopicTitle}>{topic.title}</Text>
+                  <Text style={styles.helpTopicDesc}>{topic.desc}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+
+            <View style={styles.helpContactSection}>
+              <Text style={styles.helpContactTitle}>Need More Help?</Text>
+              <TouchableOpacity style={styles.helpContactButton}>
+                <MessageSquare size={20} color="#2563eb" />
+                <Text style={styles.helpContactText}>Contact Support</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.helpContactButton}>
+                <Search size={20} color="#2563eb" />
+                <Text style={styles.helpContactText}>Search Help Articles</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </View>
+      </Modal>
+    </View>
   );
 };
 
@@ -273,6 +354,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f9fafb',
+  },
+  scrollContainer: {
+    flex: 1,
   },
   header: {
     paddingTop: 60,
@@ -288,12 +372,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   greeting: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'Inter-Regular',
     color: '#dbeafe',
   },
   userName: {
-    fontSize: 24,
+    fontSize: 28,
     fontFamily: 'Inter-SemiBold',
     color: '#ffffff',
     marginTop: 4,
@@ -315,56 +399,38 @@ const styles = StyleSheet.create({
   },
   notificationCount: {
     color: '#ffffff',
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: 'Inter-SemiBold',
   },
-  healthStatusCard: {
+  welcomeCard: {
     backgroundColor: '#ffffff',
     borderRadius: 16,
     padding: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    gap: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 3,
   },
-  healthStatusLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  healthStatusText: {
-    gap: 4,
-  },
-  healthStatusTitle: {
-    fontSize: 18,
+  welcomeTitle: {
+    fontSize: 20,
     fontFamily: 'Inter-SemiBold',
     color: '#1f2937',
+    textAlign: 'center',
   },
-  healthStatusSubtitle: {
-    fontSize: 14,
+  welcomeSubtitle: {
+    fontSize: 16,
     fontFamily: 'Inter-Regular',
     color: '#6b7280',
-  },
-  healthScoreBadge: {
-    backgroundColor: '#dcfce7',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
-  },
-  healthScoreText: {
-    fontSize: 18,
-    fontFamily: 'Inter-SemiBold',
-    color: '#10b981',
+    textAlign: 'center',
   },
   quickActionsContainer: {
     padding: 20,
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontFamily: 'Inter-SemiBold',
     color: '#1f2937',
     marginBottom: 16,
@@ -377,7 +443,7 @@ const styles = StyleSheet.create({
   quickActionCard: {
     backgroundColor: '#ffffff',
     width: (width - 56) / 2,
-    padding: 16,
+    padding: 20,
     borderRadius: 12,
     alignItems: 'center',
     gap: 12,
@@ -386,16 +452,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 2,
+    minHeight: 120,
   },
   quickActionIcon: {
     padding: 12,
     borderRadius: 12,
   },
   quickActionText: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-Medium',
     color: '#1f2937',
     textAlign: 'center',
+    lineHeight: 22,
   },
   healthOverviewContainer: {
     paddingHorizontal: 20,
@@ -409,7 +477,7 @@ const styles = StyleSheet.create({
   healthStatCard: {
     backgroundColor: '#ffffff',
     width: (width - 56) / 2,
-    padding: 16,
+    padding: 20,
     borderRadius: 12,
     gap: 12,
     shadowColor: '#000',
@@ -417,6 +485,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 2,
+    minHeight: 100,
   },
   healthStatHeader: {
     flexDirection: 'row',
@@ -424,12 +493,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   healthStatValue: {
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'Inter-SemiBold',
     color: '#1f2937',
   },
   healthStatTitle: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-Regular',
     color: '#6b7280',
   },
@@ -444,7 +513,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   viewAllText: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-Medium',
     color: '#2563eb',
   },
@@ -453,7 +522,7 @@ const styles = StyleSheet.create({
   },
   activityCard: {
     backgroundColor: '#ffffff',
-    padding: 16,
+    padding: 20,
     borderRadius: 12,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -471,7 +540,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   activityIcon: {
-    padding: 8,
+    padding: 10,
     borderRadius: 8,
   },
   activityContent: {
@@ -479,22 +548,22 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   activityTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'Inter-SemiBold',
     color: '#1f2937',
   },
   activitySubtitle: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-Regular',
     color: '#6b7280',
   },
   statusBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     borderRadius: 12,
   },
   statusText: {
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: 'Inter-SemiBold',
     color: '#ffffff',
   },
@@ -503,7 +572,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   aiTipCard: {
-    padding: 20,
+    padding: 24,
     borderRadius: 16,
     gap: 12,
   },
@@ -513,26 +582,26 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   aiTipTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'Inter-SemiBold',
     color: '#ffffff',
   },
   aiTipText: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-Regular',
     color: '#ffffff',
-    lineHeight: 20,
+    lineHeight: 24,
     opacity: 0.9,
   },
   aiTipButton: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
     borderRadius: 8,
     alignSelf: 'flex-start',
   },
   aiTipButtonText: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-SemiBold',
     color: '#ffffff',
   },
@@ -541,13 +610,144 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    paddingVertical: 16,
+    paddingVertical: 20,
     marginBottom: 20,
   },
   securityText: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-Regular',
     color: '#6b7280',
+  },
+  // Help Bot Styles
+  helpBotButton: {
+    position: 'absolute',
+    bottom: 100,
+    right: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#2563eb',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#2563eb',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  helpModalContainer: {
+    flex: 1,
+    backgroundColor: '#f9fafb',
+  },
+  helpModalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 60,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    backgroundColor: '#ffffff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e5e7eb',
+  },
+  helpBotInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  helpBotAvatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#2563eb',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  helpBotTitle: {
+    fontSize: 20,
+    fontFamily: 'Inter-SemiBold',
+    color: '#1f2937',
+  },
+  helpBotSubtitle: {
+    fontSize: 16,
+    fontFamily: 'Inter-Regular',
+    color: '#6b7280',
+  },
+  helpCloseButton: {
+    padding: 8,
+    borderRadius: 8,
+    backgroundColor: '#f3f4f6',
+  },
+  helpModalContent: {
+    flex: 1,
+    paddingHorizontal: 20,
+  },
+  helpSectionTitle: {
+    fontSize: 22,
+    fontFamily: 'Inter-SemiBold',
+    color: '#1f2937',
+    marginTop: 24,
+    marginBottom: 16,
+  },
+  helpTopicCard: {
+    backgroundColor: '#ffffff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+    padding: 20,
+    borderRadius: 12,
+    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  helpTopicIcon: {
+    padding: 12,
+    borderRadius: 12,
+    backgroundColor: '#dbeafe',
+  },
+  helpTopicContent: {
+    flex: 1,
+    gap: 4,
+  },
+  helpTopicTitle: {
+    fontSize: 18,
+    fontFamily: 'Inter-SemiBold',
+    color: '#1f2937',
+  },
+  helpTopicDesc: {
+    fontSize: 16,
+    fontFamily: 'Inter-Regular',
+    color: '#6b7280',
+    lineHeight: 22,
+  },
+  helpContactSection: {
+    marginTop: 32,
+    marginBottom: 40,
+  },
+  helpContactTitle: {
+    fontSize: 20,
+    fontFamily: 'Inter-SemiBold',
+    color: '#1f2937',
+    marginBottom: 16,
+  },
+  helpContactButton: {
+    backgroundColor: '#ffffff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    padding: 20,
+    borderRadius: 12,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  helpContactText: {
+    fontSize: 18,
+    fontFamily: 'Inter-Medium',
+    color: '#2563eb',
   },
 });
 

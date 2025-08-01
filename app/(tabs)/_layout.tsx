@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { Chrome as Home, FileText, Users, Pill, Clock, Bot, MessageCircle, Settings } from 'lucide-react-native';
+import { Home, FileText, Users, MessageCircle, User } from 'lucide-react-native';
 
 export default function TabLayout() {
   return (
@@ -14,11 +14,14 @@ export default function TabLayout() {
           borderTopColor: '#e5e7eb',
           paddingBottom: 8,
           paddingTop: 8,
-          height: 88,
+          height: 90,
         },
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 14,
           fontFamily: 'Inter-Medium',
+          marginTop: 4,
+        },
+        tabBarIconStyle: {
           marginTop: 4,
         },
       }}>
@@ -27,7 +30,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ size, color }) => (
-            <Home size={size} color={color} />
+            <Home size={28} color={color} />
           ),
         }}
       />
@@ -36,43 +39,7 @@ export default function TabLayout() {
         options={{
           title: 'Records',
           tabBarIcon: ({ size, color }) => (
-            <FileText size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="family"
-        options={{
-          title: 'Family',
-          tabBarIcon: ({ size, color }) => (
-            <Users size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="prescriptions"
-        options={{
-          title: 'Prescriptions',
-          tabBarIcon: ({ size, color }) => (
-            <Pill size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="reminders"
-        options={{
-          title: 'Reminders',
-          tabBarIcon: ({ size, color }) => (
-            <Clock size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="ai-assistant"
-        options={{
-          title: 'AI Assistant',
-          tabBarIcon: ({ size, color }) => (
-            <Bot size={size} color={color} />
+            <FileText size={28} color={color} />
           ),
         }}
       />
@@ -81,16 +48,25 @@ export default function TabLayout() {
         options={{
           title: 'Community',
           tabBarIcon: ({ size, color }) => (
-            <MessageCircle size={size} color={color} />
+            <MessageCircle size={28} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="family"
         options={{
-          title: 'Settings',
+          title: 'Family',
           tabBarIcon: ({ size, color }) => (
-            <Settings size={size} color={color} />
+            <Users size={28} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ size, color }) => (
+            <User size={28} color={color} />
           ),
         }}
       />
