@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { Home, FileText, Users, MessageCircle, User } from 'lucide-react-native';
+import { Home, FileText, QrCode, Users, MessageCircle } from 'lucide-react-native';
 
 export default function TabLayout() {
   return (
@@ -44,11 +44,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="community"
+        name="qr-scanner"
         options={{
-          title: 'Community',
+          title: 'QR',
           tabBarIcon: ({ size, color }) => (
-            <MessageCircle size={28} color={color} />
+            <QrCode size={28} color={color} />
           ),
         }}
       />
@@ -62,11 +62,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="community"
         options={{
-          title: 'Profile',
+          title: 'Community',
           tabBarIcon: ({ size, color }) => (
-            <User size={28} color={color} />
+            <MessageCircle size={28} color={color} />
           ),
         }}
       />
