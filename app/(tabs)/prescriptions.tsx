@@ -189,10 +189,17 @@ const Prescriptions = () => {
           {/* AI Explanation */}
           <View style={styles.aiExplanationCard}>
             <View style={styles.aiHeader}>
-              <Brain size={20} color="#10b981" />
+              <Bot size={20} color="#8b5cf6" />
               <Text style={styles.aiTitle}>AI Explanation</Text>
             </View>
             <Text style={styles.aiText}>{prescription.aiExplanation}</Text>
+            <TouchableOpacity 
+              style={styles.aiChatButton}
+              onPress={() => Alert.alert('AI Assistant', 'Ask me anything about your prescription!')}
+            >
+              <Bot size={16} color="#8b5cf6" />
+              <Text style={styles.aiChatButtonText}>Ask AI about this prescription</Text>
+            </TouchableOpacity>
           </View>
 
           {/* Medicines */}
@@ -334,7 +341,7 @@ const Prescriptions = () => {
 
               {/* AI Summary Preview */}
               <View style={styles.aiPreview}>
-                <Brain size={14} color="#10b981" />
+                <Bot size={14} color="#8b5cf6" />
                 <Text style={styles.aiPreviewText} numberOfLines={2}>
                   {prescription.aiExplanation}
                 </Text>
@@ -599,12 +606,12 @@ const styles = StyleSheet.create({
     color: '#6b7280',
   },
   aiExplanationCard: {
-    backgroundColor: '#f0fdf4',
+    backgroundColor: '#f8fafc',
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
     borderLeftWidth: 4,
-    borderLeftColor: '#10b981',
+    borderLeftColor: '#8b5cf6',
   },
   aiHeader: {
     flexDirection: 'row',
@@ -615,13 +622,29 @@ const styles = StyleSheet.create({
   aiTitle: {
     fontSize: 16,
     fontFamily: 'Inter-SemiBold',
-    color: '#10b981',
+    color: '#8b5cf6',
   },
   aiText: {
     fontSize: 14,
     fontFamily: 'Inter-Regular',
     color: '#1f2937',
     lineHeight: 22,
+    marginBottom: 12,
+  },
+  aiChatButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    backgroundColor: '#f1f5f9',
+    borderRadius: 8,
+    alignSelf: 'flex-start',
+  },
+  aiChatButtonText: {
+    fontSize: 14,
+    fontFamily: 'Inter-SemiBold',
+    color: '#8b5cf6',
   },
   medicinesSection: {
     marginBottom: 20,

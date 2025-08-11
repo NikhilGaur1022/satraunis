@@ -20,7 +20,8 @@ import {
   Share,
   Eye,
   Brain,
-  Plus
+  Plus,
+  Bot
 } from 'lucide-react-native';
 
 const HealthRecords = () => {
@@ -101,15 +102,11 @@ const HealthRecords = () => {
   };
 
   const handleViewRecord = (record) => {
-    Alert.alert(
-      record.title,
-      `AI Summary: ${record.aiSummary}\n\nDate: ${record.date}\nDoctor: ${record.doctor}\nHospital: ${record.hospital}`,
-      [
-        { text: 'Download', onPress: () => Alert.alert('Download', 'File downloaded!') },
-        { text: 'Share', onPress: () => Alert.alert('Share', 'Sharing options opened!') },
-        { text: 'Close', style: 'cancel' }
-      ]
-    );
+    Alert.alert('AI Analysis', `Our AI has analyzed this record:\n\n${record.aiSummary}\n\nWould you like to ask the AI assistant for more details?`, [
+      { text: 'Ask AI', onPress: () => Alert.alert('AI Assistant', 'Opening AI chat for detailed analysis...') },
+      { text: 'View Record', onPress: () => Alert.alert('Record', 'Opening full record view...') },
+      { text: 'Close', style: 'cancel' }
+    ]);
   };
 
   const getTypeColor = (type) => {
@@ -223,7 +220,7 @@ const HealthRecords = () => {
               {/* AI Summary */}
               <View style={styles.aiSummaryContainer}>
                 <View style={styles.aiSummaryHeader}>
-                  <Brain size={16} color="#10b981" />
+                  <Bot size={16} color="#8b5cf6" />
                   <Text style={styles.aiSummaryTitle}>AI Summary</Text>
                 </View>
                 <Text style={styles.aiSummaryText} numberOfLines={2}>
@@ -235,10 +232,10 @@ const HealthRecords = () => {
               <View style={styles.recordActions}>
                 <TouchableOpacity 
                   style={styles.actionButton}
-                  onPress={() => Alert.alert('View', 'Opening full record...')}
+                  onPress={() => handleViewRecord(record)}
                 >
-                  <Eye size={16} color="#2563eb" />
-                  <Text style={styles.actionText}>View</Text>
+                  <Bot size={16} color="#8b5cf6" />
+                  <Text style={styles.actionText}>AI Analysis</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity 
@@ -457,12 +454,12 @@ const styles = StyleSheet.create({
     color: '#10b981',
   },
   aiSummaryContainer: {
-    backgroundColor: '#f0fdf4',
+    backgroundColor: '#f3f4f6',
     padding: 16,
     borderRadius: 8,
     marginBottom: 12,
     borderLeftWidth: 3,
-    borderLeftColor: '#10b981',
+    borderLeftColor: '#8b5cf6',
   },
   aiSummaryHeader: {
     flexDirection: 'row',
@@ -473,7 +470,7 @@ const styles = StyleSheet.create({
   aiSummaryTitle: {
     fontSize: 16,
     fontFamily: 'Inter-SemiBold',
-    color: '#10b981',
+    color: '#8b5cf6',
   },
   aiSummaryText: {
     fontSize: 16,
@@ -494,7 +491,7 @@ const styles = StyleSheet.create({
   actionText: {
     fontSize: 16,
     fontFamily: 'Inter-Medium',
-    color: '#2563eb',
+    color: '#6b7280',
   },
   emptyState: {
     alignItems: 'center',
