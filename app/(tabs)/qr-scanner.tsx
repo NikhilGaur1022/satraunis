@@ -8,17 +8,7 @@ import {
   Modal,
   Image
 } from 'react-native';
-import { 
-  QrCode, 
-  Camera, 
-  Upload, 
-  X, 
-  Shield,
-  Phone,
-  User,
-  Heart,
-  AlertTriangle
-} from 'lucide-react-native';
+import { QrCode, Camera, Upload, X, Shield, Phone, User, Heart, TriangleAlert as AlertTriangle } from 'lucide-react-native';
 
 const QRScanner = () => {
   const [showOptions, setShowOptions] = useState(false);
