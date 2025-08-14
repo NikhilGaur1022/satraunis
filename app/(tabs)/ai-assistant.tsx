@@ -134,34 +134,20 @@ const AIAssistant = () => {
       return "अगर तबीयत बहुत खराब है तो तुरंत 102 पर कॉल करें या नजदीकी अस्पताल जाएं। सांस लेने में तकलीफ, सीने में दर्द, या बेहोशी हो तो देर न करें।";
     }
 
+    if (lowerText.includes('रिपोर्ट') || lowerText.includes('report') || lowerText.includes('टेस्ट')) {
+      return "आपकी हाल की रिपोर्ट्स के अनुसार:\n\n• ब्लड शुगर: 140 mg/dl (थोड़ा ऊंचा)\n• ब्लड प्रेशर: 135/85 (सामान्य से ऊंचा)\n• कोलेस्ट्रॉल: 220 mg/dl (बॉर्डरलाइन)\n\nसुझाव: डॉक्टर से मिलें और दवाई की जांच कराएं।";
+    }
+
+    if (lowerText.includes('वजन') || lowerText.includes('weight') || lowerText.includes('मोटापा')) {
+      return "वजन कम करने के लिए:\n\n• रोज 30-45 मिनट टहलें\n• चीनी और तली चीजें कम करें\n• छोटी प्लेट में खाना खाएं\n• पानी ज्यादा पिएं\n• रात का खाना जल्दी खाएं\n\nधीरे-धीरे 1-2 किलो प्रति महीने कम करना सुरक्षित है।";
+    }
+
     // Default response
-    return "मैं आपकी बात समझ गया हूँ। सामान्य स्वास्थ्य सलाह के लिए मैं यहाँ हूँ, लेकिन खास मेडिकल सवालों के लिए डॉक्टर से मिलें। क्या कोई और सवाल है जिसमें मैं आपकी मदद कर सकूं?";
+    return "मैं आपकी बात समझ गया हूँ। मैं निम्नलिखित विषयों में आपकी मदद कर सकता हूँ:\n\n• दवाइयों का समय और डोज़\n• खाने की सलाह\n• व्यायाम के तरीके\n• रिपोर्ट्स की व्याख्या\n• आपातकालीन सलाह\n\nकृपया अपना सवाल स्पष्ट रूप से पूछें।";
   };
 
   const handleQuickPrompt = (prompt) => {
-    const userMessage = {
-      id: Date.now(),
-      text: prompt.text,
-      isBot: false,
-      timestamp: new Date().toISOString()
-    };
-
-    setMessages(prev => [...prev, userMessage]);
-    setIsTyping(true);
-
-    // Simulate AI response with more detailed responses
-    setTimeout(() => {
-      const response = prompt.response;
-      const botMessage = {
-        id: Date.now() + 1,
-        text: response,
-        isBot: true,
-        timestamp: new Date().toISOString()
-      };
-      
-      setMessages(prev => [...prev, botMessage]);
-      setIsTyping(false);
-    }, 1500);
+    handleSendMessage(prompt.text);
   };
 
   return (
