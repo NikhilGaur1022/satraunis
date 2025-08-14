@@ -139,7 +139,29 @@ const AIAssistant = () => {
   };
 
   const handleQuickPrompt = (prompt) => {
-    handleSendMessage(prompt.text);
+    const userMessage = {
+      id: Date.now(),
+      text: prompt.text,
+      isBot: false,
+      timestamp: new Date().toISOString()
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setIsTyping(true);
+
+    // Simulate AI response with more detailed responses
+    setTimeout(() => {
+      const response = prompt.response;
+      const botMessage = {
+        id: Date.now() + 1,
+        text: response,
+        isBot: true,
+        timestamp: new Date().toISOString()
+      };
+      
+      setMessages(prev => [...prev, botMessage]);
+      setIsTyping(false);
+    }, 1500);
   };
 
   return (
