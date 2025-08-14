@@ -15,17 +15,19 @@ import {
   Heart, 
   Activity,
   Droplets,
-  Moon,
-  Sun,
   Utensils,
-  MessageCircle
+  MessageCircle,
+  Pill,
+  Clock,
+  Phone,
+  AlertCircle
 } from 'lucide-react-native';
 
 const AIAssistant = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I'm your AI Health Assistant. I can help you with wellness tips, healthy habits, and general health guidance. How can I assist you today?",
+      text: "नमस्ते! मैं आपका स्वास्थ्य सहायक हूँ। मैं आपकी दवाइयों, स्वास्थ्य की जांच और सामान्य सवालों में मदद कर सकता हूँ। आज मैं आपकी कैसे सहायता कर सकता हूँ?",
       isBot: true,
       timestamp: new Date().toISOString()
     }
@@ -36,37 +38,35 @@ const AIAssistant = () => {
 
   const quickPrompts = [
     { 
-      icon: Droplets, 
-      text: "How much water should I drink daily?", 
-      color: "#2563eb",
-      response: "Based on general guidelines, you should aim for 8-10 glasses (about 2-2.5 liters) of water daily. However, this can vary based on your activity level, climate, and overall health. Since you have diabetes, staying well-hydrated is especially important for blood sugar management."
+      icon: Pill, 
+      text: "मेरी दवाई का समय कब है?", 
+      color: "#10b981",
+      response: "आपकी दवाइयों का समय:\n\n• सुबह 8:00 बजे - मेटफॉर्मिन 500mg (नाश्ते के बाद)\n• सुबह 7:30 बजे - ग्लिमेपिराइड 2mg (नाश्ते से पहले)\n• शाम 6:00 बजे - एम्लोडिपाइन 5mg\n\nक्या आपको कोई दवाई लेने में परेशानी हो रही है?"
     },
     { 
-      icon: Activity, 
-      text: "What exercises are good for diabetes?", 
-      color: "#10b981",
-      response: "For diabetes management, I recommend a combination of aerobic exercises and strength training:\n\n• 30 minutes of brisk walking daily\n• Swimming or cycling 3-4 times a week\n• Light weight training twice a week\n• Yoga for stress management\n\nAlways check your blood sugar before and after exercise, and consult your doctor before starting any new routine."
+      icon: Heart, 
+      text: "मेरा ब्लड प्रेशर कैसा है?", 
+      color: "#ef4444",
+      response: "आपका आज का ब्लड प्रेशर रीडिंग 135/85 है। यह थोड़ा ऊंचा है। कृपया:\n\n• नमक कम खाएं\n• रोज 30 मिनट टहलें\n• तनाव कम करें\n• अपनी दवाई समय पर लें\n\nअगर यह 140/90 से ऊपर रहे तो डॉक्टर से मिलें।"
     },
     { 
       icon: Utensils, 
-      text: "Healthy meal suggestions for today", 
+      text: "आज क्या खाना चाहिए?", 
       color: "#f59e0b",
-      response: "Here are diabetes-friendly meal suggestions for today:\n\n**Breakfast:**\n• Oats with almonds and berries\n• Green tea\n\n**Lunch:**\n• Grilled chicken with quinoa\n• Mixed vegetable salad\n• Buttermilk\n\n**Dinner:**\n• Fish curry with brown rice\n• Steamed vegetables\n• Small portion of yogurt\n\n**Snacks:**\n• Handful of nuts\n• Apple slices with peanut butter\n\nRemember to monitor portion sizes and check blood sugar levels regularly."
+      response: "आज के लिए स्वस्थ खाना:\n\n**नाश्ता:**\n• दलिया बादाम के साथ\n• हरी चाय\n\n**दोपहर का खाना:**\n• रोटी, दाल, सब्जी\n• सलाद\n• छाछ\n\n**रात का खाना:**\n• ब्राउन राइस\n• मछली की करी\n• उबली सब्जी\n\n**नाश्ता:**\n• मुट्ठी भर बादाम\n• सेब के टुकड़े\n\nचीनी और तली चीजें कम खाएं।"
     },
     { 
-      icon: Moon, 
-      text: "Tips for better sleep", 
-      color: "#8b5cf6",
-      response: "Good sleep is crucial for managing diabetes and overall health. Here are some tips:\n\n• Maintain a consistent sleep schedule\n• Keep your bedroom cool and dark\n• Avoid caffeine 6 hours before bedtime\n• Try relaxation techniques like deep breathing\n• Limit screen time before bed\n• Consider a light walk after dinner\n\nPoor sleep can affect blood sugar levels, so aim for 7-9 hours of quality sleep each night."
+      icon: Clock, 
+      text: "डॉक्टर से कब मिलना है?", 
+      color: "#2563eb",
+      response: "आपकी अगली अपॉइंटमेंट:\n\n• डॉ. अमित शर्मा - कल सुबह 10:00 बजे\n• डॉ. प्रिया सिंह - अगले हफ्ते मंगलवार\n\nकृपया अपनी रिपोर्ट्स साथ लेकर जाएं:\n• ब्लड शुगर चार्ट\n• ब्लड प्रेशर रीडिंग\n• दवाइयों की लिस्ट\n\nक्या आपको कोई नया लक्षण दिख रहा है?"
     }
   ];
 
-  const healthTips = [
-    "Take a 5-minute walk after every meal to help with digestion and blood sugar control.",
-    "Practice deep breathing for 2 minutes when you feel stressed - it can help lower blood pressure.",
-    "Keep a water bottle nearby as a visual reminder to stay hydrated throughout the day.",
-    "Set up your exercise clothes the night before to make morning workouts easier.",
-    "Add more colorful vegetables to your plate - aim for at least 3 different colors per meal."
+  const emergencyContacts = [
+    { name: "डॉ. अमित शर्मा", number: "+91 98765 43211", type: "मधुमेह विशेषज्ञ" },
+    { name: "डॉ. प्रिया सिंह", number: "+91 98765 43212", type: "हृदय रोग विशेषज्ञ" },
+    { name: "आपातकाल", number: "102", type: "एम्बुलेंस" }
   ];
 
   useEffect(() => {
@@ -113,37 +113,41 @@ const AIAssistant = () => {
     
     // Check for quick prompt responses
     const quickPrompt = quickPrompts.find(prompt => 
-      lowerText.includes(prompt.text.toLowerCase().substring(0, 10))
+      lowerText.includes(prompt.text.toLowerCase().substring(0, 5))
     );
     if (quickPrompt) return quickPrompt.response;
 
-    // General responses based on keywords
-    if (lowerText.includes('water') || lowerText.includes('hydration')) {
-      return "Staying hydrated is essential! Aim for 8-10 glasses of water daily. You can also include herbal teas and water-rich fruits like watermelon and cucumber. Monitor your urine color - pale yellow indicates good hydration.";
+    // Hindi keyword responses
+    if (lowerText.includes('पानी') || lowerText.includes('water')) {
+      return "रोज 8-10 गिलास पानी पिएं। खासकर मधुमेह में पानी पीना जरूरी है। नींबू पानी, नारियल पानी भी पी सकते हैं। अगर पेशाब का रंग हल्का पीला है तो आप पर्याप्त पानी पी रहे हैं।";
     }
     
-    if (lowerText.includes('exercise') || lowerText.includes('workout')) {
-      return "Regular exercise is great for your health! Based on your health profile, I recommend starting with 15-20 minutes of walking daily and gradually increasing. Always consult your doctor before starting new exercises, especially with your current medications.";
+    if (lowerText.includes('व्यायाम') || lowerText.includes('exercise') || lowerText.includes('टहलना')) {
+      return "रोज 30 मिनट टहलना बहुत अच्छा है। सुबह या शाम टहलें। योग भी कर सकते हैं। व्यायाम से पहले और बाद में ब्लड शुगर चेक करें। नया व्यायाम शुरू करने से पहले डॉक्टर से पूछें।";
     }
     
-    if (lowerText.includes('diet') || lowerText.includes('food') || lowerText.includes('eat')) {
-      return "A balanced diet is key to managing your health. Focus on whole grains, lean proteins, vegetables, and healthy fats. Given your diabetes, monitor carbohydrate intake and consider smaller, frequent meals to maintain steady blood sugar levels.";
+    if (lowerText.includes('खाना') || lowerText.includes('भोजन') || lowerText.includes('diet')) {
+      return "संतुलित आहार लें। रोटी, दाल, सब्जी, सलाद खाएं। चीनी, मिठाई, तली चीजें कम करें। थोड़ा-थोड़ा करके 5-6 बार खाएं। खाने के बाद ब्लड शुगर चेक करें।";
     }
     
-    if (lowerText.includes('stress') || lowerText.includes('anxiety')) {
-      return "Managing stress is important for overall health. Try deep breathing exercises, meditation, or gentle yoga. Even a 5-minute break can help. If stress persists, consider talking to a healthcare professional.";
+    if (lowerText.includes('तनाव') || lowerText.includes('परेशानी') || lowerText.includes('stress')) {
+      return "तनाव कम करना जरूरी है। गहरी सांस लें, ध्यान करें। परिवार से बात करें। अच्छी नींद लें। अगर ज्यादा परेशानी हो तो डॉक्टर से मिलें।";
     }
     
-    if (lowerText.includes('sleep') || lowerText.includes('tired')) {
-      return "Quality sleep is crucial for health and blood sugar management. Aim for 7-9 hours nightly. Create a bedtime routine, keep your room cool and dark, and avoid screens before bed. If sleep issues persist, consult your doctor.";
+    if (lowerText.includes('नींद') || lowerText.includes('सोना') || lowerText.includes('sleep')) {
+      return "अच्छी नींद बहुत जरूरी है। 7-8 घंटे सोएं। रात को फोन कम देखें। कमरा अंधेरा रखें। सोने से पहले गर्म दूध पिएं। अगर नींद नहीं आती तो डॉक्टर से बात करें।";
     }
     
-    if (lowerText.includes('medication') || lowerText.includes('medicine')) {
-      return "I can't provide specific medical advice about medications. Please consult your doctor or pharmacist for any questions about your prescriptions. I can help you set up reminders to take medications on time though!";
+    if (lowerText.includes('दवाई') || lowerText.includes('medicine') || lowerText.includes('गोली')) {
+      return "दवाई के बारे में सिर्फ डॉक्टर से पूछें। मैं आपको दवाई का समय याद दिला सकता हूँ। दवाई समय पर लेना बहुत जरूरी है। कभी भी अपने आप दवाई बंद न करें।";
+    }
+
+    if (lowerText.includes('आपातकाल') || lowerText.includes('emergency') || lowerText.includes('तबीयत खराब')) {
+      return "अगर तबीयत बहुत खराब है तो तुरंत 102 पर कॉल करें या नजदीकी अस्पताल जाएं। सांस लेने में तकलीफ, सीने में दर्द, या बेहोशी हो तो देर न करें।";
     }
 
     // Default response
-    return "I understand you're asking about your health. While I can provide general wellness tips, for specific medical concerns, please consult your healthcare provider. Is there a particular wellness topic I can help you with today?";
+    return "मैं आपकी बात समझ गया हूँ। सामान्य स्वास्थ्य सलाह के लिए मैं यहाँ हूँ, लेकिन खास मेडिकल सवालों के लिए डॉक्टर से मिलें। क्या कोई और सवाल है जिसमें मैं आपकी मदद कर सकूं?";
   };
 
   const handleQuickPrompt = (prompt) => {
@@ -162,10 +166,13 @@ const AIAssistant = () => {
             <Bot size={24} color="#ffffff" />
           </View>
           <View>
-            <Text style={styles.headerTitle}>AI Health Assistant</Text>
-            <Text style={styles.headerSubtitle}>Here to help with wellness tips</Text>
+            <Text style={styles.headerTitle}>स्वास्थ्य सहायक</Text>
+            <Text style={styles.headerSubtitle}>आपकी सेहत की देखभाल में सहायक</Text>
           </View>
         </View>
+        <TouchableOpacity style={styles.emergencyButton}>
+          <Phone size={20} color="#ef4444" />
+        </TouchableOpacity>
       </View>
 
       {/* Messages */}
@@ -225,7 +232,7 @@ const AIAssistant = () => {
         {/* Quick Prompts */}
         {messages.length === 1 && (
           <View style={styles.quickPromptsSection}>
-            <Text style={styles.quickPromptsTitle}>Try asking me about:</Text>
+            <Text style={styles.quickPromptsTitle}>मुझसे पूछें:</Text>
             {quickPrompts.map((prompt, index) => (
               <TouchableOpacity
                 key={index}
@@ -241,15 +248,32 @@ const AIAssistant = () => {
           </View>
         )}
 
-        {/* Health Tips */}
-        <View style={styles.healthTipsSection}>
-          <Text style={styles.healthTipsTitle}>💡 Daily Health Tips</Text>
-          {healthTips.slice(0, 2).map((tip, index) => (
-            <View key={index} style={styles.healthTipCard}>
-              <Heart size={16} color="#10b981" />
-              <Text style={styles.healthTipText}>{tip}</Text>
-            </View>
+        {/* Emergency Contacts */}
+        <View style={styles.emergencySection}>
+          <Text style={styles.emergencyTitle}>🚨 आपातकालीन संपर्क</Text>
+          {emergencyContacts.map((contact, index) => (
+            <TouchableOpacity key={index} style={styles.emergencyCard}>
+              <View style={styles.emergencyInfo}>
+                <Text style={styles.emergencyName}>{contact.name}</Text>
+                <Text style={styles.emergencyType}>{contact.type}</Text>
+              </View>
+              <View style={styles.emergencyActions}>
+                <Text style={styles.emergencyNumber}>{contact.number}</Text>
+                <Phone size={16} color="#10b981" />
+              </View>
+            </TouchableOpacity>
           ))}
+        </View>
+
+        {/* Health Reminder */}
+        <View style={styles.reminderSection}>
+          <View style={styles.reminderCard}>
+            <AlertCircle size={20} color="#f59e0b" />
+            <View style={styles.reminderContent}>
+              <Text style={styles.reminderTitle}>आज की याददाश्त</Text>
+              <Text style={styles.reminderText}>शाम 6 बजे दवाई लेना न भूलें</Text>
+            </View>
+          </View>
         </View>
       </ScrollView>
 
@@ -258,7 +282,7 @@ const AIAssistant = () => {
         <View style={styles.inputWrapper}>
           <TextInput
             style={styles.textInput}
-            placeholder="Ask me about your health and wellness..."
+            placeholder="अपना सवाल यहाँ लिखें..."
             placeholderTextColor="#9ca3af"
             value={inputText}
             onChangeText={setInputText}
@@ -278,7 +302,7 @@ const AIAssistant = () => {
         </View>
         
         <Text style={styles.disclaimer}>
-          ⚠️ This AI provides general wellness tips only. For medical advice, consult your doctor.
+          ⚠️ यह केवल सामान्य सलाह देता है। मेडिकल सलाह के लिए डॉक्टर से मिलें।
         </Text>
       </View>
     </KeyboardAvoidingView>
@@ -297,29 +321,38 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#e5e7eb',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   headerLeft: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
+    flex: 1,
   },
   botAvatar: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#2563eb',
+    backgroundColor: '#10b981',
     alignItems: 'center',
     justifyContent: 'center',
   },
   headerTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'Inter-SemiBold',
     color: '#1f2937',
   },
   headerSubtitle: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-Regular',
     color: '#6b7280',
+  },
+  emergencyButton: {
+    padding: 12,
+    borderRadius: 12,
+    backgroundColor: '#fee2e2',
   },
   messagesContainer: {
     flex: 1,
@@ -343,7 +376,7 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: '#2563eb',
+    backgroundColor: '#10b981',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 4,
@@ -365,11 +398,11 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   userBubble: {
-    backgroundColor: '#2563eb',
+    backgroundColor: '#10b981',
     borderBottomRightRadius: 4,
   },
   messageText: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'Inter-Regular',
     lineHeight: 22,
   },
@@ -380,7 +413,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   messageTime: {
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: 'Inter-Regular',
     alignSelf: 'flex-end',
   },
@@ -400,7 +433,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   quickPromptsTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'Inter-SemiBold',
     color: '#1f2937',
     marginBottom: 16,
@@ -425,36 +458,81 @@ const styles = StyleSheet.create({
   },
   quickPromptText: {
     flex: 1,
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: 'Inter-Medium',
     color: '#1f2937',
   },
-  healthTipsSection: {
+  emergencySection: {
     marginTop: 20,
   },
-  healthTipsTitle: {
-    fontSize: 16,
+  emergencyTitle: {
+    fontSize: 18,
     fontFamily: 'Inter-SemiBold',
     color: '#1f2937',
     marginBottom: 12,
   },
-  healthTipCard: {
-    backgroundColor: '#f0fdf4',
+  emergencyCard: {
+    backgroundColor: '#ffffff',
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 12,
+    justifyContent: 'space-between',
+    alignItems: 'center',
     padding: 16,
     borderRadius: 12,
     marginBottom: 8,
-    borderLeftWidth: 3,
-    borderLeftColor: '#10b981',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
   },
-  healthTipText: {
+  emergencyInfo: {
     flex: 1,
+  },
+  emergencyName: {
+    fontSize: 16,
+    fontFamily: 'Inter-SemiBold',
+    color: '#1f2937',
+  },
+  emergencyType: {
     fontSize: 14,
     fontFamily: 'Inter-Regular',
-    color: '#1f2937',
-    lineHeight: 20,
+    color: '#6b7280',
+  },
+  emergencyActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  emergencyNumber: {
+    fontSize: 16,
+    fontFamily: 'Inter-SemiBold',
+    color: '#10b981',
+  },
+  reminderSection: {
+    marginTop: 20,
+  },
+  reminderCard: {
+    backgroundColor: '#fffbeb',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    padding: 16,
+    borderRadius: 12,
+    borderLeftWidth: 4,
+    borderLeftColor: '#f59e0b',
+  },
+  reminderContent: {
+    flex: 1,
+  },
+  reminderTitle: {
+    fontSize: 16,
+    fontFamily: 'Inter-SemiBold',
+    color: '#92400e',
+  },
+  reminderText: {
+    fontSize: 14,
+    fontFamily: 'Inter-Regular',
+    color: '#92400e',
   },
   inputContainer: {
     backgroundColor: '#ffffff',
@@ -477,7 +555,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 16,
     paddingVertical: 12,
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'Inter-Regular',
     color: '#1f2937',
     maxHeight: 100,
@@ -490,13 +568,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   sendButtonActive: {
-    backgroundColor: '#2563eb',
+    backgroundColor: '#10b981',
   },
   sendButtonInactive: {
     backgroundColor: '#f3f4f6',
   },
   disclaimer: {
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: 'Inter-Regular',
     color: '#6b7280',
     textAlign: 'center',

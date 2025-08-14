@@ -1,28 +1,28 @@
 import { Tabs } from 'expo-router';
-import { Chrome as Home, FileText, QrCode, Users, MessageCircle } from 'lucide-react-native';
+import { Home, FileText, Bot, Users } from 'lucide-react-native';
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#2563eb',
+        tabBarActiveTintColor: '#10b981',
         tabBarInactiveTintColor: '#6b7280',
         tabBarStyle: {
           backgroundColor: '#ffffff',
           borderTopWidth: 1,
           borderTopColor: '#e5e7eb',
-          paddingBottom: 8,
-          paddingTop: 8,
-          height: 90,
+          paddingBottom: 12,
+          paddingTop: 12,
+          height: 100,
         },
         tabBarLabelStyle: {
-          fontSize: 14,
-          fontFamily: 'Inter-Medium',
-          marginTop: 4,
+          fontSize: 16,
+          fontFamily: 'Inter-SemiBold',
+          marginTop: 6,
         },
         tabBarIconStyle: {
-          marginTop: 4,
+          marginTop: 6,
         },
       }}>
       <Tabs.Screen
@@ -30,7 +30,7 @@ export default function TabLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ size, color }) => (
-            <Home size={28} color={color} />
+            <Home size={32} color={color} />
           ),
         }}
       />
@@ -39,16 +39,16 @@ export default function TabLayout() {
         options={{
           title: 'Records',
           tabBarIcon: ({ size, color }) => (
-            <FileText size={28} color={color} />
+            <FileText size={32} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="qr-scanner"
+        name="ai-assistant"
         options={{
-          title: 'QR',
+          title: 'AI Helper',
           tabBarIcon: ({ size, color }) => (
-            <QrCode size={28} color={color} />
+            <Bot size={32} color={color} />
           ),
         }}
       />
@@ -57,16 +57,7 @@ export default function TabLayout() {
         options={{
           title: 'Family',
           tabBarIcon: ({ size, color }) => (
-            <Users size={28} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="community"
-        options={{
-          title: 'Community',
-          tabBarIcon: ({ size, color }) => (
-            <MessageCircle size={28} color={color} />
+            <Users size={32} color={color} />
           ),
         }}
       />
