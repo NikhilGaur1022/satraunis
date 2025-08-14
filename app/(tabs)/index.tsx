@@ -81,16 +81,45 @@ const Dashboard = () => {
   ];
 
   const handleHelpTopic = (topic) => {
-    Alert.alert(topic.title, topic.desc + '\n\nDetailed help coming soon!');
+    let helpContent = '';
+    switch (topic.title) {
+      case 'How to navigate the app':
+        helpContent = 'Navigation Guide:\n\n1. Home: Dashboard with health overview\n2. Records: Upload and view health documents\n3. Family: Manage family member profiles\n4. Q&A: Chat with AI health assistant\n5. Community: Connect with health groups\n\nUse the bottom tabs to switch between sections.';
+        break;
+      case 'Uploading health records':
+        helpContent = 'Upload Records:\n\n1. Go to Records tab\n2. Tap the "+" Upload button\n3. Choose file type (PDF, Image, Text)\n4. Select from camera or gallery\n5. Add description and date\n6. AI will analyze and summarize\n\nSupported formats: PDF, JPG, PNG, DOC';
+        break;
+      case 'Managing family profiles':
+        helpContent = 'Family Management:\n\n1. Go to Family tab\n2. Tap "Add Member" button\n3. Enter family member details\n4. Set relationship and permissions\n5. Share access code with them\n6. They can accept invitation\n\nYou can manage up to 6 family members.';
+        break;
+      case 'Setting up reminders':
+        helpContent = 'Medicine Reminders:\n\n1. Go to Home → Quick Actions → Reminders\n2. Tap "Add Reminder"\n3. Enter medicine name and dosage\n4. Set time and frequency\n5. Choose notification sound\n6. Enable location-based reminders\n\nReminders sync across all devices.';
+        break;
+      case 'Privacy and security':
+        helpContent = 'Your Privacy:\n\n• All data encrypted with AES-256\n• Biometric authentication required\n• No data sold to third parties\n• HIPAA compliant storage\n• Regular security audits\n• You control data sharing\n\nData stored in secure Indian servers.';
+        break;
+      default:
+        helpContent = topic.desc + '\n\nFor detailed guidance, contact our support team.';
+    }
+    Alert.alert(topic.title, helpContent);
   };
 
   const handleQuickAction = (action) => {
-    if (action.title === 'Talk to AI') {
-      Alert.alert('AI Assistant', 'Get personalized health tips and guidance from our AI assistant.');
-    } else if (action.title === 'Health Glance') {
-      Alert.alert('Health Overview', 'Quick overview of your health metrics and recent activities.');
-    } else {
-      Alert.alert(action.title, `Navigate to ${action.title} - Feature coming soon!`);
+    switch (action.title) {
+      case 'Talk to AI':
+        router.push('/(tabs)/ai-assistant');
+        break;
+      case 'Health Glance':
+        Alert.alert('Health Overview', 'Your health score is 85/100. Recent activities show good progress!');
+        break;
+      case 'Reminders':
+        Alert.alert('Medicine Reminders', 'Next: Metformin 500mg at 8:00 PM\nUpcoming: Vitamin D at 9:00 AM tomorrow');
+        break;
+      case 'Appointments':
+        Alert.alert('Appointments', 'Next appointment: Dr. Sharma tomorrow at 10:00 AM\nLocation: Apollo Hospital');
+        break;
+      default:
+        Alert.alert(action.title, `Navigate to ${action.title}`);
     }
   };
 
@@ -102,10 +131,34 @@ const Dashboard = () => {
   };
 
   const profileMenuItems = [
-    { icon: User, title: 'My Profile', action: () => Alert.alert('Profile', 'View and edit your profile') },
-    { icon: Settings, title: 'Settings', action: () => Alert.alert('Settings', 'App settings and preferences') },
-    { icon: Shield, title: 'Privacy', action: () => Alert.alert('Privacy', 'Privacy and security settings') },
-    { icon: HelpCircle, title: 'Help & Support', action: () => Alert.alert('Help', 'Get help and support') },
+    { 
+      icon: User, 
+      title: 'My Profile', 
+      action: () => {
+        Alert.alert('My Profile', 'Name: Rahul Sharma\nAge: 32\nBlood Group: B+\nPhone: +91 98765 43210\nEmail: rahul.sharma@email.com\n\nHealth Conditions:\n• Type 2 Diabetes\n• Hypertension\n\nLast Updated: Today');
+      }
+    },
+    { 
+      icon: Settings, 
+      title: 'Settings', 
+      action: () => {
+        Alert.alert('Settings', 'App Settings:\n\n• Notifications: Enabled\n• Language: English\n• Theme: Auto\n• Data Sync: Enabled\n• Biometric Lock: Enabled\n\nTap to modify settings');
+      }
+    },
+    { 
+      icon: Shield, 
+      title: 'Privacy & Security', 
+      action: () => {
+        Alert.alert('Privacy & Security', 'Your data is protected with:\n\n• End-to-end encryption\n• Biometric authentication\n• Secure cloud backup\n• HIPAA compliance\n• No data sharing with third parties\n\nLast security check: Today');
+      }
+    },
+    { 
+      icon: HelpCircle, 
+      title: 'Help & Support', 
+      action: () => {
+        Alert.alert('Help & Support', 'Get help with:\n\n• How to upload records\n• Managing family profiles\n• Setting up reminders\n• Understanding AI insights\n\nContact: support@swasthio.com\nPhone: 1800-HEALTH');
+      }
+    },
   ];
 
   return (

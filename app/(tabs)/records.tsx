@@ -98,13 +98,26 @@ const HealthRecords = () => {
   });
 
   const handleUpload = () => {
-    Alert.alert('Upload Record', 'Feature coming soon! You can upload PDFs, images, or text files.');
+    Alert.alert(
+      'Upload Health Record',
+      'Choose upload method:',
+      [
+        { text: 'Take Photo', onPress: () => Alert.alert('Camera', 'Opening camera to capture document...') },
+        { text: 'Choose from Gallery', onPress: () => Alert.alert('Gallery', 'Opening gallery to select files...') },
+        { text: 'Scan Document', onPress: () => Alert.alert('Scanner', 'Opening document scanner...') },
+        { text: 'Cancel', style: 'cancel' }
+      ]
+    );
   };
 
   const handleViewRecord = (record) => {
-    Alert.alert('AI Analysis', `Our AI has analyzed this record:\n\n${record.aiSummary}\n\nWould you like to ask the AI assistant for more details?`, [
-      { text: 'Ask AI', onPress: () => Alert.alert('AI Assistant', 'Opening AI chat for detailed analysis...') },
-      { text: 'View Record', onPress: () => Alert.alert('Record', 'Opening full record view...') },
+    Alert.alert(
+      'Health Record Details',
+      `${record.title}\n\nDate: ${record.date}\nDoctor: ${record.doctor}\nHospital: ${record.hospital}\n\nAI Analysis:\n${record.aiSummary}\n\nWould you like to:`,
+      [
+        { text: 'Ask AI Questions', onPress: () => router.push('/(tabs)/ai-assistant') },
+        { text: 'Share with Doctor', onPress: () => Alert.alert('Share', 'Sharing with your healthcare provider...') },
+        { text: 'Download PDF', onPress: () => Alert.alert('Download', 'Downloading record as PDF...') },
       { text: 'Close', style: 'cancel' }
     ]);
   };

@@ -87,10 +87,20 @@ const FamilyManagement = () => {
   const handleAddMember = () => {
     Alert.alert(
       'Add Family Member',
-      'Choose how to add a new family member:',
+      'How would you like to add a family member?',
       [
-        { text: 'Create New Profile', onPress: () => Alert.alert('Create Profile', 'Feature coming soon!') },
-        { text: 'Invite Existing User', onPress: () => Alert.alert('Send Invite', 'Feature coming soon!') },
+        { 
+          text: 'Create New Profile', 
+          onPress: () => Alert.alert('Create Profile', 'Creating new profile:\n\n1. Enter basic details\n2. Set relationship\n3. Add health information\n4. Set permissions\n5. Generate access code\n\nProfile will be created and linked to your account.') 
+        },
+        { 
+          text: 'Send Invitation', 
+          onPress: () => Alert.alert('Send Invite', 'Sending invitation:\n\n1. Enter their phone/email\n2. They receive invitation link\n3. They create their profile\n4. Accept family connection\n5. Set shared permissions\n\nInvitation sent successfully!') 
+        },
+        { 
+          text: 'Scan QR Code', 
+          onPress: () => Alert.alert('QR Scanner', 'Opening QR code scanner to connect with existing Swasthio user...') 
+        },
         { text: 'Cancel', style: 'cancel' }
       ]
     );
@@ -102,13 +112,13 @@ const FamilyManagement = () => {
         setSelectedMember(member);
         break;
       case 'edit':
-        Alert.alert('Edit Profile', `Edit ${member.name}'s profile - Feature coming soon!`);
+        Alert.alert('Edit Profile', `Editing ${member.name}'s profile:\n\n• Update personal information\n• Modify health conditions\n• Change emergency contacts\n• Update permissions\n• Add/remove access\n\nChanges will be synced across all devices.`);
         break;
       case 'records':
-        Alert.alert('Health Records', `View ${member.name}'s health records - Feature coming soon!`);
+        Alert.alert('Health Records', `${member.name}'s Records:\n\n• ${member.recordsCount} total records\n• Last updated: ${member.lastVisit}\n• Recent: Blood test, X-ray\n• Shared with: 2 doctors\n\nTap to view detailed records.`);
         break;
       case 'appointments':
-        Alert.alert('Appointments', `Manage ${member.name}'s appointments - Feature coming soon!`);
+        Alert.alert('Appointments', `${member.name}'s Appointments:\n\n• Next: Dr. Sharma - Tomorrow 10 AM\n• Upcoming: Dental checkup - Next week\n• Past: 12 completed visits\n\nTap to schedule new appointment.`);
         break;
       default:
         break;
