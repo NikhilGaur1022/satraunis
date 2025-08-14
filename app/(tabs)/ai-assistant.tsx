@@ -9,19 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform
 } from 'react-native';
-import { 
-  Bot, 
-  Send, 
-  Heart, 
-  Activity,
-  Droplets,
-  Utensils,
-  MessageCircle,
-  Pill,
-  Clock,
-  Phone,
-  AlertCircle
-} from 'lucide-react-native';
+import { Bot, Send, Heart, Activity, Droplets, Utensils, MessageCircle, Pill, Clock, Phone, CircleAlert as AlertCircle } from 'lucide-react-native';
 
 const AIAssistant = () => {
   const [messages, setMessages] = useState([
